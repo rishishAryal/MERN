@@ -11,10 +11,10 @@ const connectToMongoDB = async () => {
     });
     console.log("Connected to MongoDB");
 
-    const fetchedData = await mongoose.connection.db.collection("food_items");
-    const data = await fetchedData.find({}).toArray();
+    // const fetchedData = await mongoose.connection.db.collection("food_items");
+    // const data = await fetchedData.find({}).toArray();
 
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
