@@ -1,31 +1,28 @@
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-
-export default function Login() {
+export default function Signup() {
   const [credentials, setCredentials] = useState({
+    name: "",
     email: "",
     password: "",
+    geolocation: "",
   });
-  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/loginUser", credentials);
-      const json = response.data;
-      console.log(json);
-      if (!json.success) {
-        alert("Invalid Credentials");
-      } 
-      if(json.success){
-        
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("There was an error!", error);
+    // You might want to set the form data to the body of the request
+    // using the credentials state.
+
+    const response = await axios.post("http://localhost:5000/api/createUser", credentials);
+
+    const json = await response.data;
+    console.log(json);
+    if (!json.success) {
+      alert("Invalid Credentials");
     }
+  
   };
 
   const onChange = (e) => {
@@ -40,6 +37,16 @@ export default function Login() {
     <>
       <div>
         <form className="container mt-4" onSubmit={handleSubmit} method="post">
+          <div className="form-group ">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              className="form-control "
+              name="name"
+              value={credentials.name}
+              onChange={onChange}
+            />
+          </div>
           <div className="form-group  mt-3">
             <label htmlFor="email">Email address</label>
             <input
@@ -54,6 +61,16 @@ export default function Login() {
             </small>
           </div>
           <div className="form-group  mt-3">
+            <label htmlFor="geolocation">geolocation</label>
+            <input
+              type="text"
+              className="form-control"
+              name="geolocation"
+              value={credentials.geolocation}
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group  mt-3">
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -64,11 +81,21 @@ export default function Login() {
               placeholder="Password"
             />
           </div>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+            />
+            <label className="form-check-label" htmlFor="exampleCheck1">
+              Check me out
+            </label>
+          </div>
           <button type="submit" className=" m-3 btn btn-success">
-            Log In
+            Submit
           </button>
-          <Link to="/createuser" className=" btn btn-danger">
-            Create an Account
+          <Link to="/login" className=" btn btn-danger">
+            Already a User
           </Link>
         </form>
       </div>
