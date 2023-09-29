@@ -15,12 +15,16 @@ export default function Login() {
     try {
       const response = await axios.post("http://localhost:5000/api/loginUser", credentials);
       const json = response.data;
-      console.log(json);
+    
       if (!json.success) {
         alert("Invalid Credentials");
       } 
       if(json.success){
+        localStorage.setItem("authToken", json.authToken);
+        console.log(localStorage.getItem("authToken"));
+        //code to store the token in session storage
         
+
         navigate("/");
       }
     } catch (error) {

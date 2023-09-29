@@ -16,7 +16,7 @@ export default function Carousel() {
          <button className="btn btn-outline-success text-white bg-success" type="submit">Search</button>
     </form>
           </div>
-          <div className="carousel-item active"  >
+          <div className="carousel-item active" >
             <img
               src="https://source.unsplash.com/random/300×300/?pizza"
               style={{ filter:"brightness(30%)" }}

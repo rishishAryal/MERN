@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 export default function Signup() {
   const [credentials, setCredentials] = useState({
@@ -8,6 +8,8 @@ export default function Signup() {
     password: "",
     geolocation: "",
   });
+
+  let Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +24,12 @@ export default function Signup() {
     if (!json.success) {
       alert("Invalid Credentials");
     }
+    if(json.success){
+      localStorage.setItem("authToken", json.authToken);
+      console.log(localStorage.getItem("authToken"));
+      Navigate('/');
+    }
+
   
   };
 
